@@ -27,8 +27,8 @@ class PerfectaApi{
 
 
 	});
-/*
-	{
+
+	getJobsByCategorie = categorie => new Promise((resolve, reject) => {
 		//Set headers
 		let header = new Headers(this.JSONheaders);
 		
@@ -37,15 +37,16 @@ class PerfectaApi{
 			method: 'GET',
 			headers: header
 		}
-		fetch(this.urlBase+'/categorys', options).then((response) => {
+
+		fetch(this.urlBase+'/category/jobs/'+categorie, options).then((response) => {
 			console.log(response);
 			response.json().then(dataCategories => {
-				return dataCategories;
+				resolve(dataCategories);
 			});
 		}).catch((error) => {
 			console.log('error:',error);
 		});
-	}*/
+	});
 
 	testConnection(){
 		fetch(this.urlBase).then((response) => {
