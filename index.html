@@ -206,6 +206,8 @@
 						<button data-filter=".gal_a">Web Development</button>
 						<button data-filter=".gal_b">Creative Design</button>
 						<button data-filter=".gal_c">Graphic Design</button>
+						<button data-filter=".gal_d">Graphic Design</button>
+						<button data-filter=".guilhermão">Guilhermão</button>
 					</div>
 				</div>
 			</div>
@@ -262,6 +264,21 @@
 						<div class="img-overlay">
 							<a href="uploads/gallery_img-06.jpg" data-rel="prettyPhoto[gal]" class="hoverbutton global-radius"><i class="fa fa-picture-o"></i></a>
 						</div>
+					</div>
+				</div>
+				<div class="col-md-4 col-sm-6 gallery-grid gal_d gal_a">
+					 <div class="services-inner-box">
+						<div class="ser-icon">
+							<i class="flaticon-idea"></i>
+						</div>
+						<h2>Web Idea</h2>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut laborLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquaLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquae et dolore magna aliqua.</p>
+					</div>
+				</div>
+				<div class="col-md-4 col-sm-6 gallery-grid gal_d guilhermão">
+					 <div class="services-inner-box">
+						<h2>guilhermão</h2>
+						<p>Lorem ipsum dolor sit amet.</p>
 					</div>
 				</div>
 			</div>
@@ -609,19 +626,39 @@
     		let arrayCategories = Object.keys(categories);
     		
     		arrayCategories.map(key => {
-    			console.log('key:',key);
-    			console.log('val:',categories[key].category);
+    			/*console.log('key:',key);
+    			console.log('val:',categories[key].category);*/
     			let newButton = document.createElement('button');
     			newButton.setAttribute('data-filter', categories[key].category);
     			newButton.textContent = categories[key].category;
    				document.querySelector('#portfolio > div > div.gallery-menu.row > div > div').appendChild(newButton);
+   				this.renderJobs(categories[key].category);
     		});
-			
-			/*
-    		for(cat in categories){
-    			console.log('>>',cat);
-    		}*/
+    	}
 
+    	async function getJobs(categorie){
+    		let jobs = await perfectaApi.getJobsByCategorie(categorie);
+    		console.log('categorie:',categorie);
+    		console.log('Jobs',jobs);
+    	}
+
+    	function renderJob(categorie, job){
+    		let divRow = document.createElement('div');
+    		divRow.className = "ol-md-4 col-sm-6 gallery-grid gal_d gal_a";
+
+    		let divService = document.createElement('div');
+    		divService.className = "services-inner-box";
+
+    		let title = document.createElement('h2');
+    		title.textContent = "Job Title";
+
+    		let description = document.createElement('p');
+    		description.textContent = "Job description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+
+    		divService.appendChild(title);
+    		divService.appendChild(description);
+
+    		divRow.appendChild(divService);
 
     	}
     </script>
