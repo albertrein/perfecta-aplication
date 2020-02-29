@@ -27,7 +27,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/custom.css">
 	<script src="js/modernizr.js"></script> <!-- Modernizr -->
-
+	<script src="js/services/perfecta-api.js"></script>
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -97,7 +97,7 @@
 					<b>Graphic Design</b>
 				</span>
 				<div class="btn-ber">
-					<a class="get_btn hvr-bounce-to-top" href="#">Get started</a>
+					<a class="get_btn hvr-bounce-to-top" onclick="renderCategories()" href="#">Get started</a>
 					<a class="learn_btn hvr-bounce-to-top" href="#">Learn More</a>
 				</div>
 			</h3>
@@ -600,6 +600,31 @@
     <!-- ALL PLUGINS -->
     <script src="js/custom.js"></script>
     <script src="js/jquery.vide.js"></script>
+    
+    <script type="text/javascript">
+    	const perfectaApi = new PerfectaApi();
+    	
+    	async function renderCategories(){
+    		let categories = await perfectaApi.getCategories();
+    		let arrayCategories = Object.keys(categories);
+    		
+    		arrayCategories.map(key => {
+    			console.log('key:',key);
+    			console.log('val:',categories[key].category);
+    			let newButton = document.createElement('button');
+    			newButton.setAttribute('data-filter', categories[key].category);
+    			newButton.textContent = categories[key].category;
+   				document.querySelector('#portfolio > div > div.gallery-menu.row > div > div').appendChild(newButton);
+    		});
+			
+			/*
+    		for(cat in categories){
+    			console.log('>>',cat);
+    		}*/
+
+
+    	}
+    </script>
 
 </body>
 </html>
