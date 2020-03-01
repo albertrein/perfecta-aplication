@@ -87,7 +87,7 @@
     });
 
 	// Gallery Filter
-        var Container = $('.container');
+        /*var Container = $('.container');
         Container.imagesLoaded(function () {
             var portfolio = $('.gallery-menu');
             portfolio.on('click', 'button', function () {
@@ -101,7 +101,7 @@
                 itemSelector: '.gallery-grid'
             });
 
-        });
+        });*/
 	
     // FUN FACTS   
 
