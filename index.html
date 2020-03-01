@@ -33,7 +33,39 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script type="text/javascript">
-    	function renderJob(categorie, job){
+    	const perfectaApi = new PerfectaApi();
+    	
+    	async function getCategories(){
+    		//capture categories
+    		let categories = await perfectaApi.getCategories();
+    		
+    		for(categorie in categories){
+    			renderCategories(categories[categorie].category);
+    			getJobs(categories[categorie].category);
+    		}
+    	}
+
+    	async function renderCategories(categorie){
+    		let newButton = document.createElement('button');
+    		newButton.setAttribute('data-filter', categorie.replace(/\s/g, ''));
+    		newButton.textContent = categorie;
+   			document.querySelector('#portfolio > div > div.gallery-menu.row > div > div').appendChild(newButton);   			    		
+    	}
+
+    	async function getJobs(categorie){
+    		try{
+    			let jobs = await perfectaApi.getJobsByCategorie(categorie);
+
+    			for(job in jobs){
+    				//renderJob(categorie, job, jobs[job].description);
+    				renderJob('','','');
+    			}
+    		}catch(error){
+    			console.log('Erro: ',categorie, 'Not Found');
+    		}
+    	}
+
+    	function renderJob(categorie, jobTitle, jobDescription){
     		let divRow = document.createElement('div');
     		divRow.className = "col-md-4 col-sm-6 gallery-grid gal_d gal_a";
 
@@ -54,11 +86,14 @@
     		//setTimeout(_ => {
     			document.querySelector('.gallery-list.row').appendChild(divRow);
     		//}, 2000);    	
-    		//teste();
-    		execGalleryFilter();	
+    		
+
     	}
+    		getCategories();
     	window.onload = function(){
-    		renderJob('','');			
+    		//renderJob('','');
+    		execGalleryFilter();
+    		teste();
 		}
     </script>
 
@@ -228,11 +263,11 @@
 				<div class="col-md-12">
 					<div class="button-group filter-button-group text-center">
 						<button class="active" data-filter="*">All</button>
-						<button data-filter=".gal_a">Web Development</button>
+						<!-- <button data-filter=".gal_a">Web Development</button>
 						<button data-filter=".gal_b">Creative Design</button>
 						<button data-filter=".gal_c">Graphic Design</button>
 						<button data-filter=".gal_d">Graphic Design</button>
-						<button data-filter=".guilhermão">Guilhermão</button>
+						<button data-filter=".guilhermão">Guilhermão</button> -->
 					</div>
 				</div>
 			</div>
@@ -643,48 +678,25 @@
     <script src="js/custom.js"></script>
     <script src="js/jquery.vide.js"></script>
     
-    <script type="text/javascript">
-    	const perfectaApi = new PerfectaApi();
-    	
-    	async function renderCategories(){
-    		let categories = await perfectaApi.getCategories();
-    		let arrayCategories = Object.keys(categories);
-    		
-    		arrayCategories.map(key => {
-    			/*console.log('key:',key);
-    			console.log('val:',categories[key].category);*/
-    			let newButton = document.createElement('button');
-    			newButton.setAttribute('data-filter', categories[key].category);
-    			newButton.textContent = categories[key].category;
-   				document.querySelector('#portfolio > div > div.gallery-menu.row > div > div').appendChild(newButton);
-   				this.renderJobs(categories[key].category);
-    		});
-    	}
+    <script type="text/javascript">    	
+	 	function execGalleryFilter(){
+			// Gallery Filter
+	        var Container = $('.container');
+	        Container.imagesLoaded(function () {
+	            var portfolio = $('.gallery-menu');
+	            portfolio.on('click', 'button', function () {
+	                $(this).addClass('active').siblings().removeClass('active');
+	                var filterValue = $(this).attr('data-filter');
+	                $grid.isotope({
+	                    filter: filterValue
+	                });
+	            });
+	            var $grid = $('.gallery-list').isotope({
+	                itemSelector: '.gallery-grid'
+	            });
 
-    	async function getJobs(categorie){
-    		let jobs = await perfectaApi.getJobsByCategorie(categorie);
-    		console.log('categorie:',categorie);
-    		console.log('Jobs',jobs);
-    	}
- 	function execGalleryFilter(){
-
-	// Gallery Filter
-        var Container = $('.container');
-        Container.imagesLoaded(function () {
-            var portfolio = $('.gallery-menu');
-            portfolio.on('click', 'button', function () {
-                $(this).addClass('active').siblings().removeClass('active');
-                var filterValue = $(this).attr('data-filter');
-                $grid.isotope({
-                    filter: filterValue
-                });
-            });
-            var $grid = $('.gallery-list').isotope({
-                itemSelector: '.gallery-grid'
-            });
-
-        });
-	}
+	        });
+		}
     </script>
 
 </body>
