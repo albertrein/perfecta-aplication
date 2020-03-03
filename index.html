@@ -74,19 +74,23 @@
    			document.querySelector('#portfolio > div > div.gallery-menu.row > div > div').appendChild(newButton);   			    		
     	} */
 
-		let getJobs = (categorie) => new Promise(async (resolve,reject) => {
-			
-    		let jobs = await perfectaApi.getJobsByCategorie(categorie);
+		let getJobs = (categorie) => new Promise(async (resolve,reject) => {    		
+			try{
+				let jobs = await perfectaApi.getJobsByCategorie(categorie);
     		
-			let arrayPromisesJobs = [];
-    		for(job in jobs){
-    			arrayPromisesJobs.push(await renderJob(categorie, job, jobs[job].description));
-				//renderJob(categorie, job, jobs[job].description);
-				//arrayPromisesJobs.push(renderJob('','',''));
-    			//renderJob('','','');
+				let arrayPromisesJobs = [];
+				for(job in jobs){
+					arrayPromisesJobs.push(await renderJob(categorie, job, jobs[job].description));
+					//renderJob(categorie, job, jobs[job].description);
+					//arrayPromisesJobs.push(renderJob('','',''));
+					//renderJob('','','');
+				}
+				await Promise.all(arrayPromisesJobs);
+				resolve();
+			}catch(error){
+    			console.log('Erro: ',categorie, 'Not Found');
+				resolve();
     		}
-			await Promise.all(arrayPromisesJobs);
-			resolve();
 		});
 
     	/* async function getJobs(categorie){
@@ -151,10 +155,8 @@
 
     	window.onload = async function(){
     		let out = await getCategories();
-			console.log('>>');
-			//renderJob('','');
+			console.log('Finished Render files.');
     		execGalleryFilter();
-    		//teste();
 		}
     </script>
 
@@ -324,11 +326,11 @@
 				<div class="col-md-12">
 					<div class="button-group filter-button-group text-center">
 						<button class="active" data-filter="*">All</button>
-						<button data-filter=".gal_a">Web Development</button>
+						<!--<button data-filter=".gal_a">Web Development</button>
 						<button data-filter=".gal_b">Creative Design</button>
 						<button data-filter=".gal_c">Graphic Design</button>
 						<button data-filter=".gal_d">Graphic Design</button>
-						<button data-filter=".guilhermão">Guilhermão</button>
+						<button data-filter=".guilhermão">Guilhermão</button>-->
 					</div>
 				</div>
 			</div>
