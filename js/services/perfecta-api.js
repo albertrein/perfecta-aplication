@@ -17,15 +17,13 @@ class PerfectaApi{
 		}
 
 		fetch(this.urlBase+'/categorys', options).then((response) => {
-			console.log(response);
+			//console.log(response);
 			response.json().then(dataCategories => {
 				resolve(dataCategories);
 			});
 		}).catch((error) => {
 			console.log('error:',error);
 		});
-
-
 	});
 
 	getJobsByCategorie = categorie => new Promise((resolve, reject) => {
