@@ -17,7 +17,7 @@
     <!-- Site Icons -->
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
     <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-
+	<link href="https://fonts.googleapis.com/css?family=Emblema+One&display=swap" rel="stylesheet">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <!-- Site CSS -->
@@ -49,16 +49,6 @@
 			resolve();
 		});
 		
-    	/*async function getCategories(){
-    		//capture categories
-    		let categories = await perfectaApi.getCategories();
-    		console.log(categories);
-    		for(categorie in categories){
-    			//renderCategories(categories[categorie].category);
-    			//getJobs(categories[categorie].category);
-    		}
-    	}*/
-
 		let renderCategories = (categorie) => new Promise((resolve, reject) => {
 			let newButton = document.createElement('button');
     		newButton.setAttribute('data-filter', '.'+categorie.replace(/\s/g, ''));
@@ -66,13 +56,6 @@
    			document.querySelector('#portfolio > div > div.gallery-menu.row > div > div').appendChild(newButton);
 			resolve();
 		});
-
-    	/* async function renderCategories(categorie){
-    		let newButton = document.createElement('button');
-    		newButton.setAttribute('data-filter', categorie.replace(/\s/g, ''));
-    		newButton.textContent = categorie;
-   			document.querySelector('#portfolio > div > div.gallery-menu.row > div > div').appendChild(newButton);   			    		
-    	} */
 
 		let getJobs = (categorie) => new Promise(async (resolve,reject) => {    		
 			try{
@@ -93,20 +76,7 @@
     		}
 		});
 
-    	/* async function getJobs(categorie){
-    		try{
-    			let jobs = await perfectaApi.getJobsByCategorie(categorie);
-
-    			for(job in jobs){
-    				//renderJob(categorie, job, jobs[job].description);
-    				renderJob('','','');
-    			}
-    		}catch(error){
-    			console.log('Erro: ',categorie, 'Not Found');
-    		}
-    	} */
-
-		let renderJob = (categorie, jobTitle, jobDescription) => new Promise((resolve, reject) => {
+    	let renderJob = (categorie, jobTitle, jobDescription) => new Promise((resolve, reject) => {
 			let divRow = document.createElement('div');
     		divRow.className = "col-md-4 col-sm-6 gallery-grid "+categorie.replace(/\s/g, '');
 
@@ -127,33 +97,8 @@
     		document.querySelector('.gallery-list.row').appendChild(divRow);
 			resolve();		 	
 		});
-
-    	/*function renderJob(categorie, jobTitle, jobDescription){
-    		let divRow = document.createElement('div');
-    		divRow.className = "col-md-4 col-sm-6 gallery-grid gal_d gal_a";
-
-    		let divService = document.createElement('div');
-    		divService.className = "services-inner-box";
-
-    		let title = document.createElement('h2');
-    		title.textContent = "Job Title";
-
-    		let description = document.createElement('p');
-    		description.textContent = "Job description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
-
-    		divService.appendChild(title);
-    		divService.appendChild(description);
-
-    		divRow.appendChild(divService);
-
-    		//setTimeout(_ => {
-    			document.querySelector('.gallery-list.row').appendChild(divRow);
-    		//}, 2000);    		
-    	} */
-
-
-
-    	window.onload = async function(){
+		
+		window.onload = async function(){
     		let out = await getCategories();
 			console.log('Finished Render files.');
     		execGalleryFilter();
@@ -162,7 +107,6 @@
 
 </head>
 <body id="page-top" class="politics_version">
-
     <!-- LOADER -->
     <!-- end loader -->
     <!-- END LOADER -->
@@ -171,7 +115,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
       <div class="container">
         <a class="navbar-brand js-scroll-trigger" href="#page-top">
-			<img class="img-fluid" src="images/logo.png" alt="" />
+			<!--<img class="img-fluid" src="images/logo.png" alt="" /> -->
 		</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           Menu
@@ -180,18 +124,18 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav text-uppercase ml-auto">
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger active" href="#home">Home</a>
+              <a class="nav-link js-scroll-trigger active" href="#home">Página Inicial</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#about">About Us</a>
+              <a class="nav-link js-scroll-trigger" href="#about">Sobre Nós</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#services">Services</a>
+              <a class="nav-link js-scroll-trigger" href="#services">Serviços</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a>
+              <a class="nav-link js-scroll-trigger" href="#portfolio">Vagas</a>
             </li>
-			<li class="nav-item">
+			<!--<li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#blog">Blog</a>
             </li>
 			<li class="nav-item">
@@ -199,9 +143,9 @@
             </li>
 			<li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#pricing">Pricing</a>
-            </li>
+            </li> -->
 			<li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#contact">Contect Us</a>
+              <a class="nav-link js-scroll-trigger" href="#contact">Entre em contato</a>
             </li>
           </ul>
         </div>
@@ -209,34 +153,33 @@
     </nav>
 	
 	<section id="home" class="main-banner parallaxie" style="background: url('uploads/banner-01.jpg')">
-		<div class="heading">
-			<h1>Welcome to OnNext</h1>			
+		<div class="heading">			
+			<h1 style="font-family: 'Emblema One', cursive;"><span style="color: #f1f1f1;	background-color: #262f56;">P</span>erfecta - Recursos Humanos</h1>
 			<h3 class="cd-headline clip is-full-width">
-				<span>Lorem Ipsum Dolor Sit Amet </span>
+				<span>Amplo conhecimento nas áreas </span>
 				<span class="cd-words-wrapper">
-					<b class="is-visible">Web Developer</b>
-					<b>Web Design</b>
-					<b>Creative Design</b>
-					<b>Graphic Design</b>
+					<b class="is-visible">Administrativas</b>
+					<b>Comerciais</b>
+					<b>Operacionais</b>
+					<b>Técnicas</b>
 				</span>
 				<div class="btn-ber">
-					<a class="get_btn hvr-bounce-to-top" onclick="renderCategories()" href="#">Get started</a>
-					<a class="learn_btn hvr-bounce-to-top" href="#">Learn More</a>
+					<a class="get_btn hvr-bounce-to-top" onclick="renderCategories()" href="#">Vagas Abertas!</a>
+					<a class="learn_btn hvr-bounce-to-top" href="#">Serviços</a>
 				</div>
 			</h3>
-		</div>
-	</section>
+		</div>	</section>
 
     <div id="about" class="section wb">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
                     <div class="message-box">                        
-                        <h2>Welcome to OnNext</h2>
-                        <p> Integer rutrum ligula eu dignissim laoreet. Pellentesque venenatis nibh sed tellus faucibus bibendum. Sed fermentum est vitae rhoncus molestie. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed vitae rutrum neque. Ut id erat sit amet libero bibendum aliquam. Donec ac egestas libero, eu bibendum risus. Phasellus et congue justo. </p>
-						<p>Sed vitae rutrum neque. Ut id erat sit amet libero bibendum aliquam. Donec ac egestas libero, eu bibendum risus. Phasellus et congue justo.</p>
+                        <h2>A Perfecta</h2>
+                        <p>Com experiência de mais de 40 anos no mercado de recrutamento e seleção de pessoal, sendo a mais antiga organização de prestação de serviços de recrutamento e seleção de pessoal do sul do país, a PERFECTA presta um serviço personalizado, nossa clientela é atendida diretamente pela Direçao e acessorada por uma equipe de consultores trazendo um decisivo auxílio à indústria e ao comércio em geral.</p>
+						<p>Assim, oferece uma série de vantagens em seu processo de recrutamento, indica profissionais realmente capacitados e que se enquadram dentro do perfil solicitado, som custo bem inferior ao do mercado.</p>
 
-                        <a href="#" class="sim-btn hvr-bounce-to-top"><span>Contact Us</span></a>
+                        <a href="#" class="sim-btn hvr-bounce-to-top"><span>Entre em contato</span></a>
                     </div><!-- end messagebox -->
                 </div><!-- end col -->
 
@@ -252,73 +195,30 @@
     <div id="services" class="section lb">
         <div class="container">
             <div class="section-title text-center">
-                <h3>Services</h3>
-                <p>Quisque eget nisl id nulla sagittis auctor quis id. Aliquam quis vehicula enim, non aliquam risus.</p>
+                <h3>Serviços</h3>
+                <p>Possuímos um amplo banco de dados nas áreas ADMINISTRATIVA/COMERCIAL E TÉCNICA que teríamos muito a contribuir no processo de seleção de pessoal de sua empresa.</p>
             </div><!-- end title -->
 
-            <div class="row">
-				<div class="col-md-4">
+            <div class="row">				
+				<div class="col-md-6">
                     <div class="services-inner-box">
-						<div class="ser-icon">
-							<i class="flaticon-seo"></i>
-						</div>
-						<h2>Web Development</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+						<h2>Recrutamento e Seleção</h2>
+						<p>A PERFECTA busca em seu banco de dados os profissionais cadastrados que se enquadram no perfil estabelecido, realizando-se entrevistas individuais com os candidatos previamente triados. Assim serão encaminhados para a empresa somente os candidatos que realmente preenchem as características desejadas.</p>
 					</div>
-                </div><!-- end col -->
-                <div class="col-md-4">
-                    <div class="services-inner-box">
-						<div class="ser-icon">
-							<i class="flaticon-development"></i>
-						</div>
-						<h2>Responsive Design</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-					</div>
-                </div><!-- end col -->
-				<div class="col-md-4">
-                    <div class="services-inner-box">
-						<div class="ser-icon">
-							<i class="flaticon-process"></i>
-						</div>
-						<h2>Creative Design</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-					</div>
-                </div><!-- end col -->
-				<div class="col-md-4">
-                    <div class="services-inner-box">
-						<div class="ser-icon">
-							<i class="flaticon-discuss-issue"></i>
-						</div>
-						<h2>Support</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-					</div>
-                </div><!-- end col -->
-				<div class="col-md-4">
-                    <div class="services-inner-box">
-						<div class="ser-icon">
-							<i class="flaticon-idea"></i>
-						</div>
-						<h2>Web Idea</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-					</div>
-                </div><!-- end col -->
-				<div class="col-md-4">
-                    <div class="services-inner-box">
-						<div class="ser-icon">
-							<i class="flaticon-idea-1"></i>
-						</div>
-						<h2>Graphic Design</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-					</div>
-                </div><!-- end col -->
-            </div><!-- end row -->
-        </div><!-- end container -->
+                </div>
+                <div class="col-md-6">
+                    <div class="services-inner-box">						
+						<h2>Acompanhamento</h2>
+						<p>A PERFECTA realiza um trabalho de acompanhamento junto à empresa durante a fase de adaptação e experiência do candidato. O cliente recebe uma garantia de reposição, variando de 60 a 90 dias para a substituição do profissional, caso não permaneça por inadaptação, falta de capacidade para a função ou por qualquer outro motivo.</p>
+						<p><b>CONSULTE A PERFECTA SEM QUALQUER COMPROMISSO. SERÁ UM PRAZER FORNECE-LHES MAIORES INFORMAÇÕES SOBRE NOSSA ORGANIZAÇÃO E SEUS SERVIÇOS.</b></p>
+					</div>                </div>
+            </div><!-- end row -->        </div><!-- end container -->
     </div><!-- end section -->
 	
 	<div id="portfolio" class="section lb">
 		<div class="container">
 			<div class="section-title text-center">
-                <h3>Portfolio</h3>
+                <h3>Vagas Disponíveis</h3>
                 <p>Quisque eget nisl id nulla sagittis auctor quis id. Aliquam quis vehicula enim, non aliquam risus.</p>
             </div><!-- end title -->
 			
@@ -718,8 +618,8 @@
                         <a href="#">Faq</a>
                         <a href="#">Contact</a>
                     </p>
-                    <p class="footer-company-name">All Rights Reserved. &copy; 2018 <a href="#">OnNext</a> Design By : 
-					<a href="https://html.design/">html design</a></p>
+					<p class="footer-company-name">Todos os direitos reservados. &copy; <span id="dateNow"></span> <a href="#">ORGANIZAÇÂO PERFECTA DE SELEÇÃO DE PESSOAL LTDA</a></p>
+					<p class="footer-company-name">Desenvolvido por : <a href="https://guilherme-react-web-portfolio.herokuapp.com/">Guilherme Reinheimer</a></p>
                 </div>
             </div>
         </div><!-- end container -->
@@ -760,6 +660,7 @@
 
 	        });
 		}
+		document.querySelector('#dateNow').textContent = new Date().getFullYear();
     </script>
 
 </body>
