@@ -35,7 +35,7 @@
     <script type="text/javascript">
     	const perfectaApi = new PerfectaApi();
     	
-		let getCategories = async () => new Promise((resolve, reject) => {
+		let getCategories = () => new Promise(async (resolve, reject) => {
 			//capture categories
     		let categories = await perfectaApi.getCategories();
     		let promises = [];
@@ -46,6 +46,7 @@
     			await getJobs(categories[categorie].category);*/
     		}
 			await Promise.all(promises);
+			resolve();
 		});
 		
     	/*async function getCategories(){
@@ -60,7 +61,7 @@
 
 		let renderCategories = (categorie) => new Promise((resolve, reject) => {
 			let newButton = document.createElement('button');
-    		newButton.setAttribute('data-filter', categorie.replace(/\s/g, ''));
+    		newButton.setAttribute('data-filter', '.'+categorie.replace(/\s/g, ''));
     		newButton.textContent = categorie;
    			document.querySelector('#portfolio > div > div.gallery-menu.row > div > div').appendChild(newButton);
 			resolve();
@@ -74,19 +75,18 @@
     	} */
 
 		let getJobs = (categorie) => new Promise(async (resolve,reject) => {
-			try{
-    			let jobs = await perfectaApi.getJobsByCategorie(categorie);
-				let arrayPromisesJobs = [];
-    			for(job in jobs){
-    				//arrayPromisesJobs.push(renderJob(categorie, job, jobs[job].description);
-					//renderJob(categorie, job, jobs[job].description);
-					arrayPromisesJobs.push(renderJob('','',''));
-    				//renderJob('','','');
-    			}
-				await Promise.all(arrayPromisesJobs);
-    		}catch(error){
-    			console.log('Erro: ',categorie, 'Not Found');				
+			
+    		let jobs = await perfectaApi.getJobsByCategorie(categorie);
+    		
+			let arrayPromisesJobs = [];
+    		for(job in jobs){
+    			arrayPromisesJobs.push(await renderJob(categorie, job, jobs[job].description));
+				//renderJob(categorie, job, jobs[job].description);
+				//arrayPromisesJobs.push(renderJob('','',''));
+    			//renderJob('','','');
     		}
+			await Promise.all(arrayPromisesJobs);
+			resolve();
 		});
 
     	/* async function getJobs(categorie){
@@ -104,16 +104,16 @@
 
 		let renderJob = (categorie, jobTitle, jobDescription) => new Promise((resolve, reject) => {
 			let divRow = document.createElement('div');
-    		divRow.className = "col-md-4 col-sm-6 gallery-grid gal_d gal_a";
+    		divRow.className = "col-md-4 col-sm-6 gallery-grid "+categorie.replace(/\s/g, '');
 
     		let divService = document.createElement('div');
     		divService.className = "services-inner-box";
 
     		let title = document.createElement('h2');
-    		title.textContent = "Job Title";
+    		title.textContent = jobTitle;
 
     		let description = document.createElement('p');
-    		description.textContent = "Job description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+    		description.textContent = jobDescription;
 
     		divService.appendChild(title);
     		divService.appendChild(description);
@@ -149,9 +149,10 @@
 
 
 
-    		getCategories();
-    	window.onload = function(){
-    		//renderJob('','');
+    	window.onload = async function(){
+    		let out = await getCategories();
+			console.log('>>');
+			//renderJob('','');
     		execGalleryFilter();
     		//teste();
 		}
@@ -323,11 +324,11 @@
 				<div class="col-md-12">
 					<div class="button-group filter-button-group text-center">
 						<button class="active" data-filter="*">All</button>
-						<!-- <button data-filter=".gal_a">Web Development</button>
+						<button data-filter=".gal_a">Web Development</button>
 						<button data-filter=".gal_b">Creative Design</button>
 						<button data-filter=".gal_c">Graphic Design</button>
 						<button data-filter=".gal_d">Graphic Design</button>
-						<button data-filter=".guilhermão">Guilhermão</button> -->
+						<button data-filter=".guilhermão">Guilhermão</button>
 					</div>
 				</div>
 			</div>
