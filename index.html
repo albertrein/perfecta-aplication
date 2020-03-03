@@ -35,24 +35,61 @@
     <script type="text/javascript">
     	const perfectaApi = new PerfectaApi();
     	
-    	async function getCategories(){
+		let getCategories = async () => new Promise((resolve, reject) => {
+			//capture categories
+    		let categories = await perfectaApi.getCategories();
+    		let promises = [];
+    		for(categorie in categories){
+				promises.push(renderCategories(categories[categorie].category));
+				promises.push(getJobs(categories[categorie].category));
+				/*await renderCategories(categories[categorie].category);
+    			await getJobs(categories[categorie].category);*/
+    		}
+			await Promise.all(promises);
+		});
+		
+    	/*async function getCategories(){
     		//capture categories
     		let categories = await perfectaApi.getCategories();
-    		
+    		console.log(categories);
     		for(categorie in categories){
-    			renderCategories(categories[categorie].category);
-    			getJobs(categories[categorie].category);
+    			//renderCategories(categories[categorie].category);
+    			//getJobs(categories[categorie].category);
     		}
-    	}
+    	}*/
 
-    	async function renderCategories(categorie){
+		let renderCategories = (categorie) => new Promise((resolve, reject) => {
+			let newButton = document.createElement('button');
+    		newButton.setAttribute('data-filter', categorie.replace(/\s/g, ''));
+    		newButton.textContent = categorie;
+   			document.querySelector('#portfolio > div > div.gallery-menu.row > div > div').appendChild(newButton);
+			resolve();
+		});
+
+    	/* async function renderCategories(categorie){
     		let newButton = document.createElement('button');
     		newButton.setAttribute('data-filter', categorie.replace(/\s/g, ''));
     		newButton.textContent = categorie;
    			document.querySelector('#portfolio > div > div.gallery-menu.row > div > div').appendChild(newButton);   			    		
-    	}
+    	} */
 
-    	async function getJobs(categorie){
+		let getJobs = (categorie) => new Promise(async (resolve,reject) => {
+			try{
+    			let jobs = await perfectaApi.getJobsByCategorie(categorie);
+				let arrayPromisesJobs = [];
+    			for(job in jobs){
+    				//arrayPromisesJobs.push(renderJob(categorie, job, jobs[job].description);
+					//renderJob(categorie, job, jobs[job].description);
+					arrayPromisesJobs.push(renderJob('','',''));
+    				//renderJob('','','');
+    			}
+				await Promise.all(arrayPromisesJobs);
+    		}catch(error){
+    			console.log('Erro: ',categorie, 'Not Found');				
+    		}
+		});
+
+    	/* async function getJobs(categorie){
     		try{
     			let jobs = await perfectaApi.getJobsByCategorie(categorie);
 
@@ -63,9 +100,31 @@
     		}catch(error){
     			console.log('Erro: ',categorie, 'Not Found');
     		}
-    	}
+    	} */
 
-    	function renderJob(categorie, jobTitle, jobDescription){
+		let renderJob = (categorie, jobTitle, jobDescription) => new Promise((resolve, reject) => {
+			let divRow = document.createElement('div');
+    		divRow.className = "col-md-4 col-sm-6 gallery-grid gal_d gal_a";
+
+    		let divService = document.createElement('div');
+    		divService.className = "services-inner-box";
+
+    		let title = document.createElement('h2');
+    		title.textContent = "Job Title";
+
+    		let description = document.createElement('p');
+    		description.textContent = "Job description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+
+    		divService.appendChild(title);
+    		divService.appendChild(description);
+
+    		divRow.appendChild(divService);
+
+    		document.querySelector('.gallery-list.row').appendChild(divRow);
+			resolve();		 	
+		});
+
+    	/*function renderJob(categorie, jobTitle, jobDescription){
     		let divRow = document.createElement('div');
     		divRow.className = "col-md-4 col-sm-6 gallery-grid gal_d gal_a";
 
@@ -85,15 +144,16 @@
 
     		//setTimeout(_ => {
     			document.querySelector('.gallery-list.row').appendChild(divRow);
-    		//}, 2000);    	
-    		
+    		//}, 2000);    		
+    	} */
 
-    	}
+
+
     		getCategories();
     	window.onload = function(){
     		//renderJob('','');
     		execGalleryFilter();
-    		teste();
+    		//teste();
 		}
     </script>
 
