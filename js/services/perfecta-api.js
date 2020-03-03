@@ -39,11 +39,9 @@ class PerfectaApi{
 		}
 
 		fetch(this.urlBase+'/category/jobs/'+categorie, options).then((response) => {
-			/*console.log(response);
-			response.json().then(dataCategories => {
-				resolve(dataCategories);
-			});*/
-			resolve(response.json());
+			
+			resolve(response.json());			
+
 		}).catch((error) => {
 			console.log('error:',error);
 		});
