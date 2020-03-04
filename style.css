@@ -682,12 +682,16 @@ xclip
 
 
 .services-inner-box{
-	padding: 15px;
-	background: #ffffff;
-	margin-bottom: 30px;
-	border-radius: 50px 50px 0px 50px;
-	position: relative;
-	transition: all 0.3s ease-in-out 0s;
+    padding: 15px;
+    background: #ffffff;
+    margin-bottom: 30px;
+    border-radius: 48px 50px 0px 50px;
+    transition: all 0.3s ease-in-out 0s;
+    position: relative;
+    overflow: hidden;
+    -webkit-box-shadow: 0 0 10px #ccc;
+    box-shadow: 0 0 10px #ccc;
+    margin: 5px;
 }
 .ser-icon{
 	width: 90px;
@@ -2593,6 +2597,10 @@ select.mobile-device {
 
 .btn {
     border: 0 !important;
+}
+
+.filter-button-group button{
+    margin: 5px;
 }
 
 .btn-light {
