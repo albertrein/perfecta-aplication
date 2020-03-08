@@ -337,10 +337,12 @@
 		}
 		document.querySelector('#dateNow').textContent = new Date().getFullYear();
 
-        document.querySelector('#contactForm').addEventListener('submit', evt => {
+        document.querySelector('#contactForm').addEventListener('submit', async evt => {
             evt.preventDefault();
             console.log(evt);
-            perfectaApi.sendContactForm(evt.target.elements[0].value, evt.target.elements[1].value, evt.target.elements[2].value, evt.target.elements[3].value);
+            let returnResponse = await perfectaApi.sendContactForm(evt.target.elements[0].value, evt.target.elements[1].value, evt.target.elements[2].value, evt.target.elements[3].value);
+
+            console.log(returnResponse);
         });
     </script>
 
