@@ -45,6 +45,22 @@ class PerfectaApi{
 		});
 	});
 
+	sendContactForm = (name, email, phone, message) => new Promise((resolve, reject) => {
+		let bodySend = {
+			name: name,
+			email: phone,
+			message: message
+		};
+
+		let response = await fetch(this.urlBase+'/sendmail/contact', {
+			headers: this.JSONheaders,
+			body: JSON.stringify(bodySend);
+		});
+
+		resolve(response);
+
+	});
+
 	testConnection(){
 		fetch(this.urlBase).then((response) => {
 			console.log('Perfecta-',response);
@@ -52,5 +68,6 @@ class PerfectaApi{
 			console.error('Perfecta responding:',error);
 		});
 	}
+
 
 }
