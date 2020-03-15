@@ -45,7 +45,7 @@ class PerfectaApi{
 		});
 	});
 
-	sendContactForm = (name, email, phone, message) => new Promise((resolve, reject) => {
+	sendContactForm = (name, email, phone, message) => new Promise(async (resolve, reject) => {
 		let bodySend = {
 			name: name,
 			email: phone,
@@ -54,7 +54,7 @@ class PerfectaApi{
 
 		let response = await fetch(this.urlBase+'/sendmail/contact', {
 			headers: this.JSONheaders,
-			body: JSON.stringify(bodySend);
+			body: JSON.stringify(bodySend)
 		});
 
 		resolve(response);
